@@ -1,9 +1,5 @@
 # LegionI2CArrowLake
 
-> **Heads up:** a good portion of this code is AI generated. I do understand how it works,
-> and I'm happy to explain any of it. If something looks wrong or you have a question,
-> open an issue or ping me on Discord (`watchthelight`).
-
 A codeless kext (one `Info.plist`, no binary) that lets VoodooI2C drive the I2C controllers of Intel's Arrow Lake-HX / 800-series PCH (`8086:7F4C` to `7F4F`), so an I2C touchpad on those laptops works in macOS. VoodooI2C 2.9.1 only matches Sunrise Point, Cannon Lake, Comet Lake and Ice Lake controller IDs; this adds a personality for the Arrow Lake ones with the right timing values and the controller class that wakes the device from D3hot.
 
 Written for a Lenovo Legion 5 15IAX10, whose ELAN06FA touchpad (`PNP0C50`, ACPI `\_SB.PC02.I2C1.TPD0`) sits on I2C1 = `8086:7F4D`.
