@@ -61,7 +61,7 @@ VoodooI2C's controller personalities carry the clock and timing values per PCH g
 
 - [VoodooI2C](https://github.com/VoodooI2C/VoodooI2C) (alexandred and contributors, GPL-2.0): the driver this plugs into.
 - Linux `drivers/mfd/intel-lpss-pci.c`: the device IDs and timing table.
-- [CENSEDAXIS20025/ASUS-FX608LP-Hackintosh-Multiboot](https://github.com/CENSEDAXIS20025/ASUS-FX608LP-Hackintosh-Multiboot): an ASUS FX608LP with the same Core Ultra 9 275HX and an ELAN touchpad on `8086:7F4E`. Its notes were the first to show that this personality does not bind on a VoodooI2C master build, and describe a fix for pads whose interrupt is an APIC pin, where the polling flag is read too late; no code from it is in this repository.
+- [CENSEDAXIS20025/ASUS-FX608LP-Hackintosh-Multiboot](https://github.com/CENSEDAXIS20025/ASUS-FX608LP-Hackintosh-Multiboot): an ASUS FX608LP with the same Core Ultra 9 275HX and an ELAN touchpad on `8086:7F4E`. Its notes were the first to show that this personality does not bind on a VoodooI2C master build, and describe patches for pads whose interrupt looks like a valid APIC pin (at or below 0x2f), where VoodooI2C returns before it reads `-vi2c-force-polling`; no code from it is in this repository.
 - [bafcz/Hackintosh_LegionY9000P-IRX8_RaptorLake-HX](https://github.com/bafcz/Hackintosh_LegionY9000P-IRX8_RaptorLake-HX) (GPL-3.0, bafcz): an interrupt-driven ELAN06FA touchpad on a Raptor Lake-HX Legion through a modified VoodooI2C and a VoodooGPIO pin table, the route we would follow to get Arrow Lake off polling ([#1](https://github.com/watchthelight-labs/LegionI2CArrowLake/issues/1)); no code from it is in this repository.
 
 ## Licence
