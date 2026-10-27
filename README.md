@@ -19,6 +19,7 @@ Written for a Lenovo Legion 5 15IAX10, whose ELAN06FA touchpad (`PNP0C50`, ACPI 
 ## Installation
 
 1. Install VoodooI2C 2.9.1 (with its VoodooGPIO and VoodooI2CServices plugins) and VoodooI2CHID the usual way. If VoodooPS2 is also loaded, load only one copy of VoodooInput.
+   Use the 2.9.1 release, not a master or nightly build. Master dropped `VoodooI2CPCILakeController` on 2025-11-25 ([VoodooI2C 054d5d1](https://github.com/VoodooI2C/VoodooI2C/commit/054d5d1297), PR #575) and moved the D0 write into the plain `VoodooI2CPCIController`, so on a master build the `IOClass` below finds no class and the kext never binds. The owner of an ASUS FX608LP reports that naming `VoodooI2CPCIController` there works; we have only tested the 2.9.1 release.
 2. Copy `LegionI2CArrowLake.kext` to `EFI/OC/Kexts/` and add it to `config.plist`, `Kernel > Add`, after VoodooI2C and VoodooI2CHID:
 
    ```
@@ -60,6 +61,8 @@ VoodooI2C's controller personalities carry the clock and timing values per PCH g
 
 - [VoodooI2C](https://github.com/VoodooI2C/VoodooI2C) (alexandred and contributors, GPL-2.0): the driver this plugs into.
 - Linux `drivers/mfd/intel-lpss-pci.c`: the device IDs and timing table.
+- [CENSEDAXIS20025/ASUS-FX608LP-Hackintosh-Multiboot](https://github.com/CENSEDAXIS20025/ASUS-FX608LP-Hackintosh-Multiboot): an ASUS FX608LP with the same Core Ultra 9 275HX and an ELAN touchpad on `8086:7F4E`. Its notes were the first to show that this personality does not bind on a VoodooI2C master build, and describe a fix for pads whose interrupt is an APIC pin, where the polling flag is read too late; no code from it is in this repository.
+- [bafcz/Hackintosh_LegionY9000P-IRX8_RaptorLake-HX](https://github.com/bafcz/Hackintosh_LegionY9000P-IRX8_RaptorLake-HX) (GPL-3.0, bafcz): an interrupt-driven ELAN06FA touchpad on a Raptor Lake-HX Legion through a modified VoodooI2C and a VoodooGPIO pin table, the route we would follow to get Arrow Lake off polling ([#1](https://github.com/watchthelight-labs/LegionI2CArrowLake/issues/1)); no code from it is in this repository.
 
 ## Licence
 
