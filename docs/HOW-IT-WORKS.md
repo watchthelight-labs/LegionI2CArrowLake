@@ -2,11 +2,11 @@
 
 ## The problem
 
-VoodooI2C matches Intel LPSS I2C controllers by PCI ID, one personality per PCH generation, each carrying the bus clock and the SDA/SCL timing values for that silicon. 2.9.1 knows Sunrise Point, Cannon Lake, Comet Lake and Ice Lake. The Arrow Lake-HX / 800-series PCH functions `8086:7F4C`, `7F4D`, `7F4E` and `7F4F` are not in the list, so nothing attaches and a touchpad on those buses never appears.
+VoodooI2C matches Intel LPSS I2C controllers by PCI ID, one personality per PCH generation, each carrying the bus clock and the SDA/SCL timing values for that silicon. 2.9.1 knows Sunrise Point, Cannon Lake, Comet Lake and Ice Lake. The Arrow Lake-HX / 800-series PCH functions `8086:7F4C`, `7F4D`, `7F4E`, `7F4F` (I2C #0 to #3) and `7F7A`, `7F7B` (I2C #4, #5) are not in the list, so nothing attaches and a touchpad on those buses never appears.
 
 ## The timing values
 
-Linux `drivers/mfd/intel-lpss-pci.c` assigns these four IDs `bxt_i2c_info`: clock 133 MHz, SDA hold 42 ns, SDA falling 171 ns, SCL falling 208 ns. VoodooI2C's Ice Lake personality (0x34E8, also `bxt_i2c_info` in Linux) carries exactly those numbers, so the personality here is the Ice Lake one with the `IOPCIMatch` changed to `0x7f4c8086&0xFFFCFFFF` (mask the two low bits of the device ID, so one entry covers all four functions).
+Linux `drivers/mfd/intel-lpss-pci.c` assigns these IDs `bxt_i2c_info`: clock 133 MHz, SDA hold 42 ns, SDA falling 171 ns, SCL falling 208 ns. VoodooI2C's Ice Lake personality (0x34E8, also `bxt_i2c_info` in Linux) carries exactly those numbers, so the personality here is the Ice Lake one with the `IOPCIMatch` changed to `0x7f4c8086&0xFFFCFFFF 0x7f7a8086&0xFFFEFFFF`: the first entry masks the two low bits of the device ID and covers 7F4C to 7F4F, the second masks one bit and covers 7F7A and 7F7B (added in 1.2.0).
 
 ## D3hot
 

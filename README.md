@@ -15,7 +15,7 @@ Written for a Lenovo Legion 5 15IAX10, whose ELAN06FA touchpad (`PNP0C50`, ACPI 
 
 - It needs `-vi2c-force-polling`: VoodooGPIO has no community data for the Arrow Lake GPIO controllers (`INTC1082` / `INTC1084`), so the touchpad interrupt cannot be routed and VoodooI2C polls instead. That costs a little CPU and latency; it does not affect how the pad feels here.
 - It only matches the controller. Your touchpad still needs the right VoodooI2C satellite (VoodooI2CHID for `PNP0C50` HID-over-I2C devices) and an ACPI `_STA` that says the device is present under Darwin.
-- Tested on one laptop and one controller revision.
+- Tested on two laptops: the Legion 5 15IAX10 (`7F4D`) and one user's Arrow Lake laptop (`7F7A`). The other matched IDs (`7F4C`, `7F4E`, `7F4F`, `7F7B`) have not been tested with this kext.
 
 ## Installation
 
