@@ -9,6 +9,7 @@ Written for a Lenovo Legion 5 15IAX10, whose ELAN06FA touchpad (`PNP0C50`, ACPI 
 | What | Tested on | Result |
 |---|---|---|
 | Touchpad ELAN06FA on `8086:7F4D` | Legion 5 15IAX10, VoodooI2C 2.9.1 + VoodooI2CHID, macOS 15.8.1, 26.7.1 (25G241) and 26.7.2 (25G332), OpenCore 1.0.8 | pointer, tap, two-finger scroll working daily since 2026-10-16; interrupt polled (`-vi2c-force-polling`), see below |
+| Touchpad on `8086:7F7A` (1.2.0) | Chiledog's Arrow Lake laptop, VoodooI2C 2.9.1 + VoodooI2CHID ([#4](https://github.com/watchthelight-labs/LegionI2CArrowLake/issues/4)) | VoodooI2CHID attaches and the touchpad works (2026-10-28); with a VoodooI2C master build it does not, master has no `VoodooI2CPCILakeController` |
 
 ## What it can't do
 
