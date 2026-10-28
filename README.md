@@ -1,6 +1,6 @@
 # LegionI2CArrowLake
 
-A codeless kext (one `Info.plist`, no binary) that lets VoodooI2C drive the I2C controllers of Intel's Arrow Lake-HX / 800-series PCH (`8086:7F4C` to `7F4F`), so an I2C touchpad on those laptops works in macOS. VoodooI2C 2.9.1 only matches Sunrise Point, Cannon Lake, Comet Lake and Ice Lake controller IDs; this adds a personality for the Arrow Lake ones with the right timing values and the controller class that wakes the device from D3hot.
+A codeless kext (one `Info.plist`, no binary) that lets VoodooI2C drive the I2C controllers of Intel's Arrow Lake-HX / 800-series PCH (`8086:7F4C` to `7F4F`, `7F7A` and `7F7B`), so an I2C touchpad on those laptops works in macOS. VoodooI2C 2.9.1 only matches Sunrise Point, Cannon Lake, Comet Lake and Ice Lake controller IDs; this adds a personality for the Arrow Lake ones with the right timing values and the controller class that wakes the device from D3hot.
 
 Written for a Lenovo Legion 5 15IAX10, whose ELAN06FA touchpad (`PNP0C50`, ACPI `\_SB.PC02.I2C1.TPD0`) sits on I2C1 = `8086:7F4D`.
 
@@ -45,7 +45,7 @@ Written for a Lenovo Legion 5 15IAX10, whose ELAN06FA touchpad (`PNP0C50`, ACPI 
 
 | Key | Value | Where it comes from |
 |---|---|---|
-| `IOPCIMatch` | `0x7f4c8086&0xFFFCFFFF` | matches 7F4C, 7F4D, 7F4E, 7F4F |
+| `IOPCIMatch` | `0x7f4c8086&0xFFFCFFFF 0x7f7a8086&0xFFFEFFFF` | matches 7F4C to 7F4F (I2C #0 to #3) and 7F7A, 7F7B (I2C #4, #5) |
 | `IOClass` | `VoodooI2CPCILakeController` | the VoodooI2C controller class that forces the function to D0 through PMCSR before touching it |
 | `I2CClkRate` | 133000000 | Linux `intel-lpss-pci.c`, `bxt_i2c_info` for these IDs |
 | `I2CSdaHoldTimeNs` | 42 | same |

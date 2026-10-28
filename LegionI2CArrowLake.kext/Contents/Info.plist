@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Lets VoodooI2C drive the Arrow Lake / 800-series PCH LPSS I2C controllers (8086:7F4C-7F4F) with its Ice Lake timing profile. 1.1.0: IOClass VoodooI2CPCILakeController, which forces the controller to D0 through PMCSR (cap 0x80); the plain class left it in D3hot and VoodooI2C read COMP_TYPE 0xffffffff</string>
+	<string>Lets VoodooI2C drive the Arrow Lake / 800-series PCH LPSS I2C controllers (8086:7F4C-7F4F, 7F7A-7F7B) with its Ice Lake timing profile through VoodooI2CPCILakeController, which brings the controller out of D3hot. 1.2.0 adds I2C #4 and #5 (7F7A, 7F7B).</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.watchthelight.LegionI2CArrowLake</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -15,11 +15,11 @@
 	<key>CFBundlePackageType</key>
 	<string>KEXT</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1.0</string>
+	<string>1.2.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.1.0</string>
+	<string>1.2.0</string>
 	<key>IOKitPersonalities</key>
 	<dict>
 		<key>VoodooI2CPCIArrowLakePCHController</key>
@@ -37,7 +37,7 @@
 			<key>IOClass</key>
 			<string>VoodooI2CPCILakeController</string>
 			<key>IOPCIMatch</key>
-			<string>0x7f4c8086&amp;0xFFFCFFFF</string>
+			<string>0x7f4c8086&amp;0xFFFCFFFF 0x7f7a8086&amp;0xFFFEFFFF</string>
 			<key>IOProbeScore</key>
 			<integer>9999</integer>
 			<key>IOProviderClass</key>
