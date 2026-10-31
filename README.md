@@ -1,4 +1,6 @@
-# LegionI2CArrowLake
+# WTLI2CArrowLake
+
+Renamed from `LegionI2CArrowLake` on 2026-10-31; the kext is still `LegionI2CArrowLake.kext`. Old links redirect here.
 
 A codeless kext (one `Info.plist`, no binary) that lets VoodooI2C drive the I2C controllers of Intel's Arrow Lake-HX / 800-series PCH (`8086:7F4C` to `7F4F`, `7F7A` and `7F7B`), so an I2C touchpad on those laptops works in macOS. VoodooI2C 2.9.1 only matches Sunrise Point, Cannon Lake, Comet Lake and Ice Lake controller IDs; this adds a personality for the Arrow Lake ones with the right timing values and the controller class that wakes the device from D3hot.
 
@@ -9,7 +11,7 @@ Written for a Lenovo Legion 5 15IAX10, whose ELAN06FA touchpad (`PNP0C50`, ACPI 
 | What | Tested on | Result |
 |---|---|---|
 | Touchpad ELAN06FA on `8086:7F4D` | Legion 5 15IAX10, VoodooI2C 2.9.1 + VoodooI2CHID, macOS 15.8.1, 26.7.1 (25G241) and 26.7.2 (25G332), OpenCore 1.0.8 | pointer, tap, two-finger scroll working daily since 2026-10-16; interrupt polled (`-vi2c-force-polling`), see below |
-| Touchpad on `8086:7F7A` (1.2.0) | Chiledog's Arrow Lake laptop, VoodooI2C 2.9.1 + VoodooI2CHID ([#4](https://github.com/watchthelight-labs/LegionI2CArrowLake/issues/4)) | VoodooI2CHID attaches and the touchpad works (2026-10-28); with a VoodooI2C master build it does not, master has no `VoodooI2CPCILakeController` |
+| Touchpad on `8086:7F7A` (1.2.0) | Chiledog's Arrow Lake laptop, VoodooI2C 2.9.1 + VoodooI2CHID ([#4](https://github.com/watchthelight-labs/WTLI2CArrowLake/issues/4)) | VoodooI2CHID attaches and the touchpad works (2026-10-28); with a VoodooI2C master build it does not, master has no `VoodooI2CPCILakeController` |
 
 ## What it can't do
 
@@ -63,7 +65,7 @@ VoodooI2C's controller personalities carry the clock and timing values per PCH g
 - [VoodooI2C](https://github.com/VoodooI2C/VoodooI2C) (alexandred and contributors, GPL-2.0): the driver this plugs into.
 - Linux `drivers/mfd/intel-lpss-pci.c`: the device IDs and timing table.
 - [CENSEDAXIS20025/ASUS-FX608LP-Hackintosh-Multiboot](https://github.com/CENSEDAXIS20025/ASUS-FX608LP-Hackintosh-Multiboot): an ASUS FX608LP with the same Core Ultra 9 275HX and an ELAN touchpad on `8086:7F4E`. Its notes were the first to show that this personality does not bind on a VoodooI2C master build, and describe patches for pads whose interrupt looks like a valid APIC pin (at or below 0x2f), where VoodooI2C returns before it reads `-vi2c-force-polling`; no code from it is in this repository.
-- [bafcz/Hackintosh_LegionY9000P-IRX8_RaptorLake-HX](https://github.com/bafcz/Hackintosh_LegionY9000P-IRX8_RaptorLake-HX) (GPL-3.0, bafcz): an interrupt-driven ELAN06FA touchpad on a Raptor Lake-HX Legion through a modified VoodooI2C and a VoodooGPIO pin table, the route we would follow to get Arrow Lake off polling ([#1](https://github.com/watchthelight-labs/LegionI2CArrowLake/issues/1)); no code from it is in this repository.
+- [bafcz/Hackintosh_LegionY9000P-IRX8_RaptorLake-HX](https://github.com/bafcz/Hackintosh_LegionY9000P-IRX8_RaptorLake-HX) (GPL-3.0, bafcz): an interrupt-driven ELAN06FA touchpad on a Raptor Lake-HX Legion through a modified VoodooI2C and a VoodooGPIO pin table, the route we would follow to get Arrow Lake off polling ([#1](https://github.com/watchthelight-labs/WTLI2CArrowLake/issues/1)); no code from it is in this repository.
 
 ## Licence
 
